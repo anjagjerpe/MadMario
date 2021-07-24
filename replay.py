@@ -1,3 +1,5 @@
+"""Evaluates a trained Mario"""
+
 import random, datetime
 from pathlib import Path
 

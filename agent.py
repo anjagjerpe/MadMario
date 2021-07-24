@@ -1,3 +1,28 @@
+""" 
+Create Mario class to represent agent. The agent should act, remember and learn
+
+Act is represented by act method.
+For any given state, an agent choses the optimal action (exploit) or random action (explore)
+
+Remember is represented by cache and recall methods. This serves as the "memory" process. 
+cache: Store each experience (current state, action, reward, next state, done) into memory
+recall: randomly sample a batch of experiences from memory to learn the game. 
+
+Learn is a DDQN algorithm implemented in MarioNet. 
+DDQN uses two convNets, Q_online and Q_target, that independently approximate the optional action-value function
+These share a feature generator. 
+theta_target (parameters of Q_target) is periodically synced with theta_online instead of backprop.
+
+The TD estimate and TD target is the two values involved in learning
+TD estimate: predicted optimal Q for given state s. TD_e = Q_online(s, a)
+TD target: aggregation of current reward and estimted Q. TD_t = r + gamma*Q_Target(s', a') 
+           where a' = argmax(Q_online(s, a))
+
+To update the model we compute TD target and TD estimate and backpropagate this loss down Q_online, 
+we periodically copy the parameters theta_online to theta_target to update Q_target. 
+
+"""
+
 import torch
 import random, numpy as np
 from pathlib import Path

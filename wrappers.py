@@ -1,3 +1,7 @@
+""" 
+Use a wrapper to preprocess the environment data before sending it to the agent
+"""
+
 import gym
 import torch
 import random, datetime, numpy as np
@@ -7,6 +11,7 @@ from gym.spaces import Box
 
 class ResizeObservation(gym.ObservationWrapper):
     def __init__(self, env, shape):
+        """Downsample each observation into a square image"""
         super().__init__(env)
         if isinstance(shape, int):
             self.shape = (shape, shape)
@@ -22,7 +27,6 @@ class ResizeObservation(gym.ObservationWrapper):
         resize_obs *= 255
         resize_obs = resize_obs.astype(np.uint8)
         return resize_obs
-
 
 class SkipFrame(gym.Wrapper):
     def __init__(self, env, skip):
